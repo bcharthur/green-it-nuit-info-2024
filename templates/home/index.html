@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container my-5">
 
- <!-- Toast container -->
+    <!-- Toast container (placé en haut) -->
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000;">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
@@ -21,36 +21,191 @@
         {% endwith %}
     </div>
 
-  <div class="card shadow-sm border-0">
-    <div class="card-header text-white text-center py-3" style="background-color: #45b549;">
-      <h3 class="mb-0">Green IT : Qu’est-ce que le numérique responsable ?</h3>
+ <!-- Carte : Impact Écologique -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header text-white text-center py-3" style="background-color: #45b549;">
+            <h3 class="mb-0">Impact Écologique de Notre Application</h3>
+        </div>
+        <div class="card-body p-4">
+            <div class="row text-center">
+                <!-- Total de CO2 Économisé -->
+                <div class="col-md-6 mb-4">
+                    <div class="p-3 bg-light rounded">
+                        <h5 class="card-title" style="color: #45b549;">Total CO² Économisé</h5>
+                        <p class="display-6">
+                            {{ total_co2 | round(2) }} kg
+                        </p>
+                        <p class="text-muted">Équivalent à la plantation de 5 arbres</p>
+                    </div>
+                </div>
+
+                <!-- Nombre d'Images Traitées -->
+                <div class="col-md-6 mb-4">
+                    <div class="p-3 bg-light rounded">
+                        <h5 class="card-title" style="color: #45b549;">Images Traitées</h5>
+                        <p class="display-6">
+                            {{ image_count }}
+                        </p>
+                        <p class="text-muted">Optimisations appliquées</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas pour le Graphique (Optionnel) -->
+{#            <canvas id="co2Chart" width="400" height="200"></canvas>#}
+        </div>
     </div>
-    <div class="card-body p-4">
-      <h5 class="card-title" style="color: #45b549;">Définition du Green IT</h5>
-      <p class="card-text text-muted">
-        Green IT, informatique durable, numérique éco-responsable, éco TIC... tous ces termes ont plus ou moins la même signification.
-        On peut ainsi définir cette notion comme :
-      </p>
 
-      <blockquote class="blockquote text-center my-4">
-        <p class="mb-0">
-          « Une démarche d’amélioration continue qui vise à réduire les impacts sur l’environnement, sociaux et économiques du numérique. »
-        </p>
-      </blockquote>
+    <!-- Carte : Green IT - Définition -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header text-white text-center py-3" style="background-color: #45b549;">
+            <h3 class="mb-0">Green IT : Qu’est-ce que le numérique responsable ?</h3>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="card-title" style="color: #45b549;">Définition du Green IT</h5>
+            <p class="card-text text-muted">
+                Green IT, informatique durable, numérique éco-responsable, éco TIC... tous ces termes ont plus ou moins la même signification.
+                On peut ainsi définir cette notion comme :
+            </p>
 
-      <p class="card-text text-muted">
-        En gros, le numérique responsable désigne l’ensemble des pratiques ayant un impact réduit sur l’environnement. Que ce soit dans
-        notre société ou en entreprises, ces technologies de l’information et de la communication (TIC) permettent d’atteindre des objectifs
-        du développement durable.
-      </p>
+            <blockquote class="blockquote text-center my-4">
+                <p class="mb-0">
+                    « Une démarche d’amélioration continue qui vise à réduire les impacts sur l’environnement, sociaux et économiques du numérique. »
+                </p>
+            </blockquote>
 
-      <div class="text-center mt-4">
-        <a href="https://www.hellocarbo.com/blog/communaute/green-it/"
-           class="btn px-4 py-2 text-white" target="_blank" style="background-color: #45b549;">
-          Pour aller plus loin
-        </a>
-      </div>
+            <p class="card-text text-muted">
+                En gros, le numérique responsable désigne l’ensemble des pratiques ayant un impact réduit sur l’environnement. Que ce soit dans
+                notre société ou en entreprises, ces technologies de l’information et de la communication (TIC) permettent d’atteindre des objectifs
+                du développement durable.
+            </p>
+
+            <div class="text-center mt-4">
+                <a href="https://www.hellocarbo.com/blog/communaute/green-it/"
+                   class="btn px-4 py-2 text-white" target="_blank" style="background-color: #45b549;">
+                    Pour aller plus loin
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
+
+
+
+    <!-- Carte : Fonctionnalités Écologiques -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header text-white text-center py-3" style="background-color: #45b549;">
+            <h3 class="mb-0">Fonctionnalités Écologiques de Notre Application</h3>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="card-title" style="color: #45b549;">Optimisations pour un Numérique Responsable</h5>
+            <p class="card-text text-muted">
+                Dans le cadre de notre engagement en faveur du développement GreenIT, nous avons intégré plusieurs fonctionnalités visant à réduire l'empreinte écologique de notre application. Voici comment nos choix technologiques contribuent à un numérique plus durable :
+            </p>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Compression Automatisée des Images :</strong>
+                    <p class="mb-0">
+                        Toutes les images téléchargées sont automatiquement compressées, réduisant ainsi l'espace de stockage nécessaire et la bande passante utilisée lors des transferts. Cela permet de diminuer la consommation énergétique liée au stockage et au transfert des données.
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Évitement des Doublons grâce au Hashing :</strong>
+                    <p class="mb-0">
+                        En utilisant des algorithmes de hachage pour identifier les images déjà existantes, nous évitons le stockage de fichiers en double. Cette méthode optimise l'utilisation des ressources de stockage et réduit les besoins en traitement de données.
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Mise en Cache Efficace :</strong>
+                    <p class="mb-0">
+                        Les images de prévisualisation sont stockées dans un dossier cache, permettant des accès plus rapides et diminuant les appels répétés à l'API. Cela réduit la charge sur le serveur et économise la bande passante.
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Pagination des Données :</strong>
+                    <p class="mb-0">
+                        Les données envoyées au client sont paginées, ce qui limite la quantité de données transférées en une seule requête. Cette approche réduit la consommation de bande passante et améliore les performances de l'application.
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <strong>Gestion Optimisée de la Mémoire :</strong>
+                    <p class="mb-0">
+                        En évitant la concaténation excessive de chaînes et en gérant efficacement les exceptions, notre application minimise l'utilisation de la mémoire et optimise les performances, contribuant ainsi à une consommation énergétique réduite.
+                    </p>
+                </li>
+            </ul>
+
+            <p class="card-text text-muted mt-3">
+                Ces optimisations simples mais efficaces démontrent notre engagement à développer des solutions technologiques respectueuses de l'environnement. En intégrant ces principes dans notre développement, nous contribuons activement à la réduction de l'empreinte carbone de l'informatique.
+            </p>
+
+            <div class="text-center mt-4">
+                <a href="https://www.hellocarbo.com/blog/communaute/green-it/"
+                   class="btn px-4 py-2 text-white" target="_blank" style="background-color: #45b549;">
+                    En savoir plus sur le Green IT
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<!-- Scripts existants -->
+<script src="/static/js/api/get_data.js"></script>
+
+<!-- Scripts pour le Graphique et Mise à Jour des Statistiques -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Initialiser le graphique
+    const ctx = document.getElementById('co2Chart').getContext('2d');
+    const co2Chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['CO² Économisé (kg)', 'Images Traitées'],
+            datasets: [{
+                label: 'Impact Écologique',
+                data: [{{ total_co2 | round(2) }}, {{ image_count }}],
+                backgroundColor: [
+                    'rgba(69, 181, 73, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(69, 181, 73, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Fonction pour mettre à jour les statistiques
+    function updateStats() {
+        fetch('/api/stats')
+            .then(response => response.json())
+            .then(data => {
+                // Mettre à jour les éléments HTML
+                document.querySelector('.col-md-6:nth-child(1) .display-6').textContent = `${data.total_co2} kg`;
+                document.querySelector('.col-md-6:nth-child(1) .text-muted').textContent = 'Équivalent à la plantation de 5 arbres';
+
+                document.querySelector('.col-md-6:nth-child(2) .display-6').textContent = data.image_count;
+                document.querySelector('.col-md-6:nth-child(2) .text-muted').textContent = 'Optimisations appliquées';
+
+                // Mettre à jour le graphique
+                co2Chart.data.datasets[0].data = [data.total_co2, data.image_count];
+                co2Chart.update();
+            })
+            .catch(error => console.error('Erreur:', error));
+    }
+
+    // Mettre à jour les statistiques toutes les 60 secondes
+    setInterval(updateStats, 60000);
+</script>
+
 {% endblock %}
