@@ -3,27 +3,40 @@
 {% block title %}Consommation - Items{% endblock %}
 
 {% block body %}
-<h1>Consommation des images</h1>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Label</th>
-            <th>Taille Originale (octets)</th>
-            <th>Taille Compressée (octets)</th>
-            <th>CO2 Économisé</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.label }}</td>
-            <td>{{ item.original_size }}</td>
-            <td>{{ item.compressed_size }}</td>
-            <td>{{ item.co2_economise }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container my-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header text-white text-center py-3" style="background-color: #45b549;">
+            <h3 class="mb-0">Consommation des Images</h3>
+        </div>
+        <div class="card-body p-4">
+            <h1>Consommation des images</h1>
+
+            <!-- Table Responsive -->
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Label</th>
+                            <th>Taille Originale (octets)</th>
+                            <th>Taille Compressée (octets)</th>
+                            <th>CO2 Économisé (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.label }}</td>
+                            <td>{{ "{:,}".format(item.original_size) }}</td>
+                            <td>{{ "{:,}".format(item.compressed_size) }}</td>
+                            <td>{{ "{:.4f}".format(item.co2_economise) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
