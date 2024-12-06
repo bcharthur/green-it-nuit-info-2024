@@ -8,11 +8,16 @@ from controllers.consommation import consommation_bp
 from controllers.items_api import items_api_bp
 from models.user import User, users
 from services.log_service import enregistrer_log
+from config.setup_db import main as setup_database
+
 import logging
 
 # Initialiser le logging
 setup_logging()
 logger = logging.getLogger(__name__)
+
+# Avant de créer l'app, vous pouvez appeler:
+setup_database()
 
 def create_app():
     app = Flask(__name__)
@@ -68,7 +73,8 @@ def create_app():
 
     @app.after_request
     def log_response_info(response):
-        if request.path.startswith("/api/items"):
+        # Logguer toutes les routes sous /api
+        if request.path.startswith("/api"):
             user_id = None
             try:
                 verify_jwt_in_request(optional=True)

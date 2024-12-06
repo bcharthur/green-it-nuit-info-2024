@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql_server
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  api:
+    build: .
+    container_name: flask_api
+    ports:
+      - "5000:5000"
+    environment:
+      DB_SERVER: db
+      DB_NAME: db_green
+      DB_USER: sa
+      DB_PASSWORD: YourStrong!Passw0rd
+    depends_on:
+      - db
+
+volumes:
+  sql_data:

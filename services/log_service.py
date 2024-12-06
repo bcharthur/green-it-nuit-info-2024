@@ -23,9 +23,9 @@ def enregistrer_log(user_id, method, endpoint, json_response):
         logger.info(f"Réponse JSON : {json_response}")
 
         sql = """
-            INSERT INTO [db_green].[dbo].[api_logs] (userVar, method, timestampVar, endpoint, json_response)
-            VALUES (?, ?, ?, ?, ?)
-        """
+               INSERT INTO [db_green].[dbo].[api_logs] (userVar, methodVar, timestampVar, endpoint, json_response)
+               VALUES (?, ?, ?, ?, ?)
+           """
         cursor.execute(sql, (user_id, method, current_timestamp, endpoint, json_response))
 
         conn.commit()

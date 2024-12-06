@@ -1,6 +1,6 @@
 # controllers/items_api.py
 from flask import Blueprint, jsonify, request
-from config.connection_db import get_db_connection
+from config.connection_db import get_db_connection, logger
 from PIL import Image
 from io import BytesIO
 import hashlib
@@ -138,18 +138,31 @@ def edit_item(item_id):
 
     return jsonify({"msg": "Item updated"}), 200
 
+
 @items_api_bp.route('/items/<int:item_id>', methods=['DELETE'])
 def delete_item(item_id):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM item WHERE id = ?", (item_id,))
-    if cursor.rowcount == 0:
-        conn.close()
-        return jsonify({"msg": "Item not found"}), 404
-    conn.commit()
-    conn.close()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
-    return jsonify({"msg": "Item deleted"}), 200
+        # Supprimer d'abord les statistiques d'image associées
+        cursor.execute("DELETE FROM image_stats WHERE item_id = ?", (item_id,))
+
+        # Supprimer l'item
+        cursor.execute("DELETE FROM item WHERE id = ?", (item_id,))
+
+        if cursor.rowcount == 0:
+            conn.close()
+            return jsonify({"msg": "Item not found"}), 404
+
+        conn.commit()
+        conn.close()
+
+        return jsonify({"msg": "Item deleted"}), 200
+
+    except Exception as e:
+        logger.error(f"Erreur lors de la suppression de l'item {item_id} : {e}")
+        return jsonify({"msg": "Erreur lors de la suppression de l'item"}), 500
 
 @items_api_bp.route('/items/<int:item_id>/original_image', methods=['GET'])
 def get_original_image(item_id):
