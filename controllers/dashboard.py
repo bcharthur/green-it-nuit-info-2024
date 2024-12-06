@@ -14,7 +14,10 @@ def api_dashboard():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT userVar, method, timestampVar, endpoint, json_response FROM [db_green].[dbo].[api_logs]")
+        cursor.execute(
+            "SELECT userVar, methodVar, timestampVar, endpoint, json_response FROM api_logs"
+        )
+
         logs = cursor.fetchall()
         logs_data = [
             {
