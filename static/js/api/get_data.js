@@ -45,3 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Appeler la fonction pour charger les logs lorsque la page est chargée
     fetchLogs();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const refreshButton = document.getElementById('refresh-button');
+
+    // Lorsqu'on clique sur le bouton, on recharge la page
+    refreshButton.addEventListener('click', function() {
+        location.reload();
+    });
+});

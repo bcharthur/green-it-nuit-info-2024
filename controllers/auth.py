@@ -11,10 +11,8 @@ logger = logging.getLogger(__name__)
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        # Lors d'un accès direct (GET), on affiche le formulaire HTML
         return render_template('api/login.html')
 
-    # Si on arrive ici, c’est un POST (formulaire envoyé)
     username = request.form.get('username')
     password = request.form.get('password')
 
@@ -23,11 +21,8 @@ def login():
         login_user(user)
         logger.info(f"Utilisateur {username} connecté avec succès")
 
-        # Récupérer l'URL de destination (paramètre 'next')
-        next_url = request.args.get('next') or url_for('home')
-
-        # Redirection vers la page demandée (par exemple /api)
-        return redirect(next_url)
+        # Rediriger directement vers /api après connexion réussie
+        return redirect(url_for('dashboard.api_dashboard'))
     else:
         logger.warning(f"Tentative de connexion échouée pour l'utilisateur {username}")
         flash("Identifiants invalides", "danger")
@@ -38,4 +33,7 @@ def logout():
     if current_user.is_authenticated:
         logger.info(f"Utilisateur {current_user.id} s'est déconnecté")
         logout_user()
-    return jsonify({"msg": "Déconnecté"}), 200
+        flash("admin déconnecté", "success")  # Message flash
+
+    # Redirection vers la page d'accueil
+    return redirect(url_for('home'))
